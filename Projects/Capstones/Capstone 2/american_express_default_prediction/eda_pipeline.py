@@ -112,7 +112,7 @@ class DataFeature:
     f_type: str = field(default_factory=str)
     category: str = field(default_factory=str)
     summary: dict = field(default_factory=dict)
-    flgas: list[str] = field(default_factory=list)
+    flags: list[str] = field(default_factory=list)
     
     def __post_init__(self):
         if not self.col:
@@ -637,7 +637,7 @@ def compare_weighted_dist(
     data_a, data_b = [df.groupby(id_col)[col].agg(agg) for df in [df_a, df_b]]
     xlim = [min([data_a.min(), data_b.min()]), max([data_a.max(), data_b.max()])]
     if len(data_a.dropna().unique()) < 100:
-        bins = min(len(data_a.dropna().unique()) + 1, 12)
+        bins = min(len(data_a.dropna().unique()), 12)
     else:
         bins = 50
     ax.hist(
