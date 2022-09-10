@@ -254,7 +254,7 @@ def check_git_ignore() -> None:
             gitignore.writelines(to_ignore)
     else:
         with open('.gitignore', 'r') as gitignore:
-            ignored = gitignore.read()
+            ignored = [_.strip('\n') for _ in gitignore.readlines()]
         with open('.gitignore', 'a') as gitignore:
             for item in to_ignore:
                 if item.strip('\n') not in ignored:

@@ -21,3 +21,5 @@ ENV
 *.pickle
 *.pkl
 sql_db_connection.py
+
+sql_db_connection
