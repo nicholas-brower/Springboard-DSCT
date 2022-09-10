@@ -100,7 +100,7 @@ def is_null_corr(
             t.{id_col},
             t.{target_col},
             CASE 
-                WHEN ISNULL(s.{col}_count, 0) > 0 THEN 0 ELSE 1
+                WHEN s.{col}_count > 0 THEN 0 ELSE 1
             END AS is_null
         FROM {labels_table} t
             JOIN
@@ -110,7 +110,7 @@ def is_null_corr(
             ) s ON t.{id_col} = s.{id_col}
         ;'''
     )
-    return col_is_null.is_null.corr(col_is_null.target)   
+    return col_ .is_null.corr(col_is_null.target)   
 def numeric_view_cols(
         col: str, agg_names: list[str]=NUMERIC_AGGS)-> dict[str:str]:
     return {agg_name: f'{col}_{agg_name}' for agg_name in NUMERIC_AGGS}
@@ -327,14 +327,6 @@ def col_percentiles(
         percentile: vals[f'p_{i}'].values[0]
         for i, percentile in enumerate(percentiles)
     }
-
-def compare_all_by_target(
-        col: str, id_col: str, table: str=TRAIN_TABLE, 
-        target_col: str=TARGET_FEATURE_COL, 
-        labels_table: str=TRAIN_LABELS_TABLE
-        
-            
-      
     
         
         
